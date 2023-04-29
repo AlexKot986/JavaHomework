@@ -19,7 +19,6 @@ public class Taks_1 {
         System.out.println("Пример:\n" + str);
         System.out.println("Запрос: " + someWord);
         System.out.println("Ответ: " + toLoverCase(GetMap(str), someWord));
-
     }
 
     public static Map<String, Integer> GetMap(String s) {
