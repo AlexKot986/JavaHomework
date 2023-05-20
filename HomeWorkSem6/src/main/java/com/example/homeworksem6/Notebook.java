@@ -2,12 +2,14 @@ package com.example.homeworksem6;
 
 public class Notebook {
 
+    String model;
     Integer ram;
     Integer hdd;
     String system;
     String color;
 
-    public Notebook(Integer ram, Integer hdd, String system, String color) {
+    public Notebook(String model, Integer ram, Integer hdd, String system, String color) {
+        this.model = model;
         this.ram = ram;
         this.hdd = hdd;
         this.system = system;
@@ -27,13 +29,13 @@ public class Notebook {
        return false;
     }
     public boolean GetSystem(String val) {
-            if (system.equalsIgnoreCase(val)) {
+            if (system.startsWith(val)) {
                 return true;
             }
        return false;
     }
     public boolean GetColor(String val) {
-            if (color.equalsIgnoreCase(val)) {
+            if (color.startsWith(val)) {
                 return true;
             }
        return false;
@@ -41,7 +43,7 @@ public class Notebook {
 
 @Override
     public String toString() {
-        return "{" +
+        return model + ": \t{" +
                 "ram: " + ram +
                 ", hdd: " + hdd +
                 ", system: " + system +
