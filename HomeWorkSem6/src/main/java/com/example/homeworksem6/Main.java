@@ -1,6 +1,5 @@
 package com.example.homeworksem6;
 
-
 import java.util.*;
 
 public class Main {
@@ -19,29 +18,38 @@ public class Main {
                         "5 - Показать все");
         Map<String, Object> sortMap = GetSortMap();
         Set<Notebook> sortBooks = new HashSet<>(GetSortNote(notebooks, sortMap));
-        System.out.println(sortBooks.toString());
+        for (Notebook note : sortBooks)
+            System.out.println(note.toString());
     }
     public static Set<Notebook> GetNote() {
 
         Set<Notebook> notebooks = new HashSet<>();
-        notebooks.add(new Notebook("MSI_R1", 4, 1, "windows", "black"));
-        notebooks.add(new Notebook("MSI_R2", 8, 2, "linux", "white"));
-        notebooks.add(new Notebook("MSI_R3", 2, 2, "windows", "silver"));
+        notebooks.add(new Notebook("MSI_R1", 4, 1000, "windows", "black"));
+        notebooks.add(new Notebook("MSI_R2", 16, 750, "linux", "white"));
+        notebooks.add(new Notebook("MSI_R3", 32, 500, "windows", "silver"));
+        notebooks.add(new Notebook("MSI_R4", 64, 1202, "windows", "black"));
+        notebooks.add(new Notebook("MSI_R5", 128, 2000, "windows", "black"));
 
-        notebooks.add(new Notebook("Honor_H1", 8, 2, "windows", "silver"));
-        notebooks.add(new Notebook("Honor_H2", 6, 1, "windows", "white"));
-        notebooks.add(new Notebook("Honor_H3", 4, 2, "linux", "black"));
+        notebooks.add(new Notebook("Honor_H1", 18, 2543, "windows", "silver"));
+        notebooks.add(new Notebook("Honor_H2", 26, 451, "windows", "white"));
+        notebooks.add(new Notebook("Honor_H3", 74, 642, "linux", "black"));
+        notebooks.add(new Notebook("Honor_H4", 43, 1122, "windows", "black"));
+        notebooks.add(new Notebook("Honor_H5", 4, 2324, "linux", "black"));
 
-        notebooks.add(new Notebook("Asus_A1", 2, 1, "windows", "wight"));
-        notebooks.add(new Notebook("Asus_A2", 4, 1, "windows", "black"));
-        notebooks.add(new Notebook("Asus_A3", 12, 4, "linux", "white"));
+        notebooks.add(new Notebook("Asus_A1", 12, 1555, "windows", "wight"));
+        notebooks.add(new Notebook("Asus_A2", 46, 1324, "windows", "black"));
+        notebooks.add(new Notebook("Asus_A3", 142, 234, "linux", "white"));
+        notebooks.add(new Notebook("Asus_A5", 126, 4332, "mac", "white"));
+        notebooks.add(new Notebook("Asus_A6", 2, 432, "linux", "black"));
 
-        notebooks.add(new Notebook("Lenovo_L1", 2, 1, "linux", "white"));
-        notebooks.add(new Notebook("Lenovo_L2", 2, 1, "linux", "white"));
-        notebooks.add( new Notebook("Lenovo_L3", 2, 1, "linux", "black"));
+        notebooks.add(new Notebook("Lenovo_L1", 12, 1000, "linux", "white"));
+        notebooks.add(new Notebook("Lenovo_L2", 32, 999, "linux", "white"));
+        notebooks.add( new Notebook("Lenovo_L3", 62, 777, "linux", "black"));
+        notebooks.add( new Notebook("Lenovo_L4", 102, 1222, "linux", "silver"));
+        notebooks.add( new Notebook("Lenovo_L5", 16, 657, "linux", "black"));
 
-        notebooks.add(new Notebook("Apple_A1", 4, 1, "mac", "white"));
-        notebooks.add(new Notebook("Apple_A2", 4, 2, "mac", "silver"));
+        notebooks.add(new Notebook("Apple_A1", 32, 1000, "mac", "white"));
+        notebooks.add(new Notebook("Apple_A2", 64, 2000, "mac", "silver"));
 
         return notebooks;
     }
@@ -50,7 +58,6 @@ public class Main {
         Map<String, Object> sortMap = new HashMap<>();
         Set<Character> sortChar = new HashSet<>();
         String sortStr = scanner.next();
-
 
         for (int i = 0; i < sortStr.length(); i++) {
             sortChar.add(sortStr.charAt(i));
@@ -101,6 +108,7 @@ public class Main {
             }
             if (flag) sortNote.add(note);
         }
+        if (sortNote.isEmpty()) System.out.println("Таких ноутбуков нет!");
         return sortNote;
     }
 }

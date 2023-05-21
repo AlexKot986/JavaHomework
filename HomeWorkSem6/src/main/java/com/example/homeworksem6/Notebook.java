@@ -48,6 +48,6 @@ public class Notebook {
                 ", hdd: " + hdd +
                 ", system: " + system +
                 ", color: " + color +
-                "}\n";
+                "}";
     }
 }
