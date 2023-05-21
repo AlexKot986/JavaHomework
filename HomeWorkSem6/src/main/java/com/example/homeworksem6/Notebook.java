@@ -17,13 +17,13 @@ public class Notebook {
     }
 
     public boolean GetRam(Integer val) {
-            if (ram == val) {
+            if (ram >= val) {
                 return true;
             }
        return false;
     }
     public boolean GetHdd(Integer val) {
-            if (hdd == val) {
+            if (hdd >= val) {
                 return true;
             }
        return false;
@@ -48,6 +48,6 @@ public class Notebook {
                 ", hdd: " + hdd +
                 ", system: " + system +
                 ", color: " + color +
-                "}";
+                "}\n";
     }
 }

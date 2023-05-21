@@ -10,37 +10,17 @@ public class Main {
     }
 
     public static void Menu() {
-
-        Set<Notebook> notebook = GetNote();
-        System.out.println("Введите цифру, соответствующую необходимому критерию: \n" +
+        Set<Notebook> notebooks = GetNote();
+        System.out.println("Введите цифру или несколько цифр, соответствующих необходимому критерию: \n" +
                         "1 - ОЗУ \n" +
                         "2 - Объем ЖД \n" +
                         "3 - Операционная система \n" +
                         "4 - Цвет\n" +
                         "5 - Показать все");
-        Scanner scanner = new Scanner(System.in);
-        switch (scanner.nextInt()) {
-            case 1: System.out.print("Введите объем ОЗУ: ");
-                    TakeRam(notebook, scanner.nextInt());
-                    break;
-            case 2: System.out.print("Введите объем ЖД: ");
-                    TakeHdd(notebook, scanner.nextInt());
-                    break;
-            case 3:
-                    System.out.print("Введите тип ОС: ");
-                    TakeSystem(notebook, scanner.next());
-                    break;
-            case 4: System.out.print("Введите цвет: ");
-                    TakeColor(notebook, scanner.next());
-                    break;
-            case 5: for (Notebook note : notebook) {
-                System.out.println(note.toString());
-            }
-        }
-        scanner.close();
+        Map<String, Object> sortMap = GetSortMap();
+        Set<Notebook> sortBooks = new HashSet<>(GetSortNote(notebooks, sortMap));
+        System.out.println(sortBooks.toString());
     }
-
-
     public static Set<Notebook> GetNote() {
 
         Set<Notebook> notebooks = new HashSet<>();
@@ -65,49 +45,62 @@ public class Main {
 
         return notebooks;
     }
+    public static Map<String, Object> GetSortMap() {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Object> sortMap = new HashMap<>();
+        Set<Character> sortChar = new HashSet<>();
+        String sortStr = scanner.next();
 
-    public static void TakeRam(Set<Notebook> notebooks, Integer val) {
-        boolean flag = false;
-        System.out.println("SORT---RAM---" + val + "--->");
-        for (Notebook note : notebooks) {
-            if (note.GetRam(val)) {
-                System.out.println(note.toString());
-                flag = true;
+
+        for (int i = 0; i < sortStr.length(); i++) {
+            sortChar.add(sortStr.charAt(i));
+        }
+
+        if (sortChar.contains('5')) return sortMap;
+
+        for (Character ch : sortChar) {
+            switch (ch) {
+                case '1':
+                    System.out.print("Введите ram: ");
+                    sortMap.put("ram", scanner.nextInt());
+                break;
+                case '2':
+                    System.out.print("Введите hdd: ");
+                    sortMap.put("hdd", scanner.nextInt());
+                break;
+                case '3':
+                    System.out.print("Введите System: ");
+                    sortMap.put("system", scanner.next());
+                break;
+                case '4':
+                    System.out.print("Введите Color: ");
+                    sortMap.put("color", scanner.next());
+                break;
             }
         }
-        if (!flag) System.out.println("Ноутбуков с таким параметром нет!");
+        scanner.close();
+        return sortMap;
     }
-    public static void TakeHdd(Set<Notebook> notebooks, Integer val) {
-        boolean flag = false;
-        System.out.println("SORT---HDD---" + val + "--->");
+    public static Set<Notebook> GetSortNote(Set<Notebook> notebooks, Map<String, Object> sortMap) {
+        Set<Notebook> sortNote = new HashSet<>();
+
         for (Notebook note : notebooks) {
-            if (note.GetHdd(val)) {
-                System.out.println(note.toString());
-                flag = true;
+            boolean flag = true;
+
+            for (String key : sortMap.keySet()) {
+                switch (key) {
+                    case "ram": if (!note.GetRam((int)sortMap.get(key))) flag = false;
+                    break;
+                    case "hdd": if (!note.GetHdd((int)sortMap.get(key))) flag = false;
+                    break;
+                    case "system": if (!note.GetSystem((String)sortMap.get(key))) flag = false;
+                    break;
+                    case "color": if (!note.GetColor((String) sortMap.get(key))) flag = false;
+                    break;
+                }
             }
+            if (flag) sortNote.add(note);
         }
-        if (!flag) System.out.println("Ноутбуков с таким параметром нет!");
-    }
-    public static void TakeSystem(Set<Notebook> notebooks, String val) {
-        boolean flag = false;
-        System.out.println("SORT---SYSTEM---" + val + "--->");
-        for (Notebook note : notebooks) {
-            if (note.GetSystem(val)) {
-                System.out.println(note.toString());
-                flag = true;
-            }
-        }
-        if (!flag) System.out.println("Ноутбуков с таким параметром нет!");
-    }
-    public static void TakeColor(Set<Notebook> notebooks, String val) {
-        boolean flag = false;
-        System.out.println("SORT---COLOR---" + val + "--->");
-        for (Notebook note : notebooks) {
-            if (note.GetColor(val)) {
-                System.out.println(note.toString());
-                flag = true;
-            }
-        }
-        if (!flag) System.out.println("Ноутбуков с таким параметром нет!");
+        return sortNote;
     }
 }
