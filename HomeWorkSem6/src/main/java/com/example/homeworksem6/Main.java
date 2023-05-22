@@ -63,7 +63,10 @@ public class Main {
             sortChar.add(sortStr.charAt(i));
         }
 
-        if (sortChar.contains('5')) return sortMap;
+        if (sortChar.contains('5')) {
+            scanner.close();
+            return sortMap;
+        }
 
         for (Character ch : sortChar) {
             switch (ch) {
